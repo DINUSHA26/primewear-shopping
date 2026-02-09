@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ShoppingBag, User, Search, Menu, X, LogOut, Package, ChevronDown } from 'lucide-react';
 import { useCart } from '@/store/useCart';
 import api from '@/services/api';
@@ -13,6 +14,7 @@ const CATEGORIES = {
 };
 
 const Navbar = () => {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -69,22 +71,26 @@ const Navbar = () => {
     window.location.href = '/';
   };
 
+  const isHome = pathname === '/';
+  const isFixed = isScrolled || isMobileMenuOpen || !isHome;
+  const useDarkText = isFixed;
+
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMobileMenuOpen
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isFixed
         ? 'bg-white/80 backdrop-blur-lg shadow-sm border-b border-zinc-100 py-3'
         : 'bg-transparent py-5'
         }`}
       onMouseLeave={() => setActiveCategory(null)}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-black tracking-tighter text-indigo-600 flex items-center z-50 relative">
-          VILLAGE<span className="text-zinc-900">VOGUE</span>
+        <Link href="/" className={`text-2xl font-black tracking-tighter flex items-center z-50 relative transition-colors ${useDarkText ? 'text-indigo-600' : 'text-indigo-400'}`}>
+          VILLAGE<span className={`transition-colors ${useDarkText ? 'text-zinc-900' : 'text-white'}`}>VOGUE</span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8 h-full">
-          <Link href="/products" className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 hover:text-indigo-600 transition-colors">
+          <Link href="/products" className={`text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${useDarkText ? 'text-zinc-500 hover:text-indigo-600' : 'text-zinc-200 hover:text-white'}`}>
             Shop Catalog
           </Link>
 
@@ -96,7 +102,7 @@ const Navbar = () => {
             >
               <Link
                 href={`/products?category=${category}`}
-                className="flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-zinc-500 hover:text-indigo-600 transition-colors"
+                className={`flex items-center text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${useDarkText ? 'text-zinc-500 hover:text-indigo-600' : 'text-zinc-200 hover:text-white'}`}
               >
                 {category}
                 <ChevronDown size={14} className="ml-1 -mb-[2px] opacity-50 group-hover:opacity-100 transition-opacity" />
@@ -131,7 +137,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center space-x-2 sm:space-x-5 z-50 relative">
-          <button className="p-2 text-zinc-600 hover:text-indigo-600 transition-colors">
+          <button className={`p-2 transition-colors ${useDarkText ? 'text-zinc-600 hover:text-indigo-600' : 'text-zinc-200 hover:text-white'}`}>
             <Search size={22} />
           </button>
 
@@ -145,7 +151,7 @@ const Navbar = () => {
               >
                 <button className="flex items-center gap-2 p-1 hover:bg-zinc-50 rounded-full transition-all group">
                   <div className="hidden lg:flex flex-col items-end opacity-50 group-hover:opacity-100 transition-opacity">
-                    <span className="text-[10px] font-black text-zinc-900 max-w-[80px] truncate">{user.name.split(' ')[0]}</span>
+                    <span className={`text-[10px] font-black max-w-[80px] truncate transition-colors ${useDarkText ? 'text-zinc-900' : 'text-white group-hover:text-zinc-900'}`}>{user.name.split(' ')[0]}</span>
                   </div>
                   <div className="p-2 bg-indigo-50 text-indigo-600 rounded-full shadow-sm group-hover:shadow-indigo-100 transition-shadow">
                     <User size={20} />
@@ -198,12 +204,12 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <Link href="/login" className="p-2 text-zinc-600 hover:text-indigo-600 transition-colors">
+            <Link href="/login" className={`p-2 transition-colors ${useDarkText ? 'text-zinc-600 hover:text-indigo-600' : 'text-zinc-200 hover:text-white'}`}>
               <User size={22} />
             </Link>
           )}
 
-          <Link href="/cart" className="relative p-2 text-zinc-600 hover:text-indigo-600 transition-colors">
+          <Link href="/cart" className={`relative p-2 transition-colors ${useDarkText ? 'text-zinc-600 hover:text-indigo-600' : 'text-zinc-200 hover:text-white'}`}>
             <ShoppingBag size={22} />
             {mounted && itemCount > 0 && (
               <span className="absolute top-0 right-0 h-5 w-5 bg-indigo-600 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-lg shadow-indigo-100">
@@ -212,7 +218,7 @@ const Navbar = () => {
             )}
           </Link>
           <button
-            className="md:hidden p-2 text-zinc-600"
+            className={`md:hidden p-2 transition-colors ${useDarkText ? 'text-zinc-600' : 'text-white'}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
