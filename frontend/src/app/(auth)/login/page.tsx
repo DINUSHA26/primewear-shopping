@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -11,7 +11,7 @@ import api from '@/services/api';
 
 import { useCart } from '@/store/useCart';
 
-export default function LoginPage() {
+function LoginContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [email, setEmail] = useState('');
@@ -161,5 +161,17 @@ export default function LoginPage() {
                 </div>
             </motion.div>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="container mx-auto px-6 py-12 flex flex-col items-center justify-center min-h-[70vh]">
+                <Loader2 className="w-10 h-10 text-indigo-600 animate-spin" />
+            </div>
+        }>
+            <LoginContent />
+        </Suspense>
     );
 }

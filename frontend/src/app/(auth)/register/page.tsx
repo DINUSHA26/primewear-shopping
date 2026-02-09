@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -9,7 +9,7 @@ import { Button } from '@/components/primary/Button';
 import { Input } from '@/components/primary/Input';
 import api from '@/services/api';
 
-export default function RegisterPage() {
+function RegisterContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [loading, setLoading] = useState(false);
@@ -142,5 +142,17 @@ export default function RegisterPage() {
                 </div>
             </motion.div>
         </div>
+    );
+}
+
+export default function RegisterPage() {
+    return (
+        <Suspense fallback={
+            <div className="container mx-auto px-6 py-12 flex flex-col items-center justify-center min-h-[80vh]">
+                <Loader2 className="w-10 h-10 text-indigo-600 animate-spin" />
+            </div>
+        }>
+            <RegisterContent />
+        </Suspense>
     );
 }
