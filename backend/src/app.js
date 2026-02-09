@@ -19,6 +19,10 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 const userRoutes = require('./routes/userRoutes');
 
+const cartRoutes = require('./routes/cartRoutes');
+
+const notificationRoutes = require('./routes/notificationRoutes');
+
 // Routes සම්බන්ධ කිරීම
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
@@ -26,6 +30,8 @@ app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/upload', uploadRoutes);
+app.use('/api/v1/cart', cartRoutes);
+app.use('/api/v1/notifications', notificationRoutes);
 
 // Health Check
 app.get('/', (req, res) => {

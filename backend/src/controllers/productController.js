@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const { createNotification } = require('./notificationController');
 
 // @desc    Get all products
 // @route   GET /api/v1/products
@@ -78,6 +79,15 @@ const createProduct = async (req, res) => {
 
         const product = await Product.create(req.body);
 
+        // Notify Admin
+        await createNotification({
+            message: `New Product "${product.name}" added by Vendor ${req.user.name}`,
+            type: 'PRODUCT_ADD',
+            recipientRole: 'admin',
+            referenceId: product._id,
+            link: '/products' // Admin dashboard link
+        });
+
         res.status(201).json({
             success: true,
             data: product
@@ -108,6 +118,17 @@ const updateProduct = async (req, res) => {
             runValidators: true
         });
 
+        // Notify Admin if Vendor updated it
+        if (req.user.role === 'vendor') {
+            await createNotification({
+                message: `Product "${product.name}" updated by Vendor ${req.user.name}`,
+                type: 'PRODUCT_UPDATE',
+                recipientRole: 'admin',
+                referenceId: product._id,
+                link: '/products'
+            });
+        }
+
         res.status(200).json({
             success: true,
             data: product
@@ -133,7 +154,18 @@ const deleteProduct = async (req, res) => {
             return res.status(401).json({ message: 'Not authorized to delete this product' });
         }
 
+        const productName = product.name;
         await product.deleteOne();
+
+        // Notify Admin if Vendor deleted it
+        if (req.user.role === 'vendor') {
+            await createNotification({
+                message: `Product "${productName}" deleted by Vendor ${req.user.name}`,
+                type: 'PRODUCT_DELETE',
+                recipientRole: 'admin',
+                link: '/products'
+            });
+        }
 
         res.status(200).json({
             success: true,

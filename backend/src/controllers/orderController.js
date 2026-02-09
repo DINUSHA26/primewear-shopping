@@ -1,5 +1,6 @@
 const Order = require('../models/Order');
 const Product = require('../models/Product');
+const { createNotification } = require('./notificationController');
 
 // @desc    Create new order
 // @route   POST /api/v1/orders
@@ -18,6 +19,7 @@ const createOrder = async (req, res) => {
         }
 
         // Check stock availability and decrease stock
+        const finalOrderItems = [];
         for (const item of orderItems) {
             const product = await Product.findById(item.product);
             if (!product) {
@@ -29,10 +31,17 @@ const createOrder = async (req, res) => {
             // Decrease stock
             product.stock -= item.quantity;
             await product.save();
+
+            // Add vendor to item
+            finalOrderItems.push({
+                ...item,
+                vendor: product.vendor, // Securely set vendor from product
+                price: product.price // Optional: secure price from product to prevent tampering
+            });
         }
 
         const order = new Order({
-            orderItems,
+            orderItems: finalOrderItems,
             customer: req.user._id,
             shippingAddress,
             paymentMethod,
@@ -40,6 +49,33 @@ const createOrder = async (req, res) => {
         });
 
         const createdOrder = await order.save();
+
+        // --- Notification Logic ---
+
+        // 1. Notify Super Admin
+        await createNotification({
+            message: `New Order #${createdOrder._id} placed by ${req.user.name}`,
+            type: 'ORDER',
+            recipientRole: 'admin',
+            referenceId: createdOrder._id,
+            link: '/orders'
+        });
+
+        // 2. Notify Relevant Vendors
+        // Get unique vendor IDs from the order items
+        const vendorIds = [...new Set(finalOrderItems.map(item => item.vendor.toString()))];
+
+        for (const vendorId of vendorIds) {
+            await createNotification({
+                message: `New Order #${createdOrder._id} received containing your products.`,
+                type: 'ORDER',
+                recipient: vendorId,
+                recipientRole: 'vendor',
+                referenceId: createdOrder._id,
+                link: '/orders'
+            });
+        }
+        // --------------------------
 
         res.status(201).json({
             success: true,
