@@ -18,7 +18,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className="relative">
           {icon && (
             <div className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-blue-500 transition-colors">
-              {React.cloneElement(icon as React.ReactElement, { size: 18 })}
+              {React.cloneElement(icon as React.ReactElement<{ size?: number }>, { size: 18 })}
             </div>
           )}
           <input
