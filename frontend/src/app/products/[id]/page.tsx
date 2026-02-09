@@ -10,6 +10,7 @@ import { formatCurrency } from '@/utils/formatCurrency';
 import { useCart } from '@/store/useCart';
 import { Product } from '@/types/product';
 import api from '@/services/api';
+import { getImageUrl } from '@/utils/getImageUrl';
 
 export default function ProductDetailsPage() {
     const { id } = useParams();
@@ -87,7 +88,7 @@ export default function ProductDetailsPage() {
                     >
                         {!mainImageError ? (
                             <Image
-                                src={product.images[selectedImage]}
+                                src={getImageUrl(product.images[selectedImage])}
                                 alt={product.name}
                                 fill
                                 className="object-cover"
@@ -96,7 +97,7 @@ export default function ProductDetailsPage() {
                             />
                         ) : !mainRealError ? (
                             <img
-                                src={product.images[selectedImage]}
+                                src={getImageUrl(product.images[selectedImage])}
                                 alt={product.name}
                                 className="w-full h-full object-cover"
                                 onError={() => setMainRealError(true)}
@@ -116,7 +117,7 @@ export default function ProductDetailsPage() {
                                     }`}
                             >
                                 <img
-                                    src={img}
+                                    src={getImageUrl(img)}
                                     alt={`${product.name} ${i}`}
                                     className="w-full h-full object-cover"
                                 />

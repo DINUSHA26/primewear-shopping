@@ -14,9 +14,9 @@ router.use(protect); // All order routes require authentication
 
 router.route('/')
     .get(authorize('admin', 'vendor'), getOrders)
-    .post(authorize('customer'), createOrder);
+    .post(authorize('customer', 'vendor'), createOrder);
 
-router.get('/myorders', authorize('customer'), getMyOrders);
+router.get('/myorders', authorize('customer', 'vendor'), getMyOrders);
 
 router.route('/:id')
     .get(getOrderById);

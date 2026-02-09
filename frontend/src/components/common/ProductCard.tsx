@@ -8,6 +8,7 @@ import { ShoppingCart, Heart, ShoppingBag } from 'lucide-react';
 import { Product } from '@/types/product';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { useCart } from '@/store/useCart';
+import { getImageUrl } from '@/utils/getImageUrl';
 
 interface ProductCardProps {
   product: Product;
@@ -15,12 +16,12 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const addItem = useCart((state) => state.addItem);
-  const [imgSrc, setImgSrc] = React.useState(product.images[0]);
+  const [imgSrc, setImgSrc] = React.useState(getImageUrl(product.images[0]));
   const [imageError, setImageError] = React.useState(false);
   const [realError, setRealError] = React.useState(false);
 
   React.useEffect(() => {
-    setImgSrc(product.images[0]);
+    setImgSrc(getImageUrl(product.images[0]));
     setImageError(false);
     setRealError(false);
   }, [product.images]);

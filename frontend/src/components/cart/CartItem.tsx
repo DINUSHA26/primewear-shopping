@@ -6,6 +6,7 @@ import { Trash2, Plus, Minus, ShoppingBag } from 'lucide-react';
 import { CartItem as CartItemType } from '@/types/product';
 import { useCart } from '@/store/useCart';
 import { formatCurrency } from '@/utils/formatCurrency';
+import { getImageUrl } from '@/utils/getImageUrl';
 
 interface CartItemProps {
     item: CartItemType;
@@ -15,10 +16,10 @@ export default function CartItem({ item }: CartItemProps) {
     const { updateQuantity, removeItem } = useCart();
     const [imageError, setImageError] = useState(false);
     const [realError, setRealError] = useState(false);
-    const [imgSrc, setImgSrc] = useState(item.images && item.images.length > 0 ? item.images[0] : '');
+    const [imgSrc, setImgSrc] = useState(item.images && item.images.length > 0 ? getImageUrl(item.images[0]) : '');
 
     React.useEffect(() => {
-        setImgSrc(item.images && item.images.length > 0 ? item.images[0] : '');
+        setImgSrc(item.images && item.images.length > 0 ? getImageUrl(item.images[0]) : '');
         setImageError(false);
         setRealError(false);
     }, [item.images]);
