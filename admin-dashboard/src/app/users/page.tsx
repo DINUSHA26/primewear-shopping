@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import api from '@/services/api';
-import { LuCheck, LuX, LuUser, LuMail, LuPhone, LuStore, LuFileText, LuAlertCircle, LuPlus, LuMapPin, LuLock } from 'react-icons/lu';
+import { LuCheck, LuX, LuUser, LuMail, LuPhone, LuStore, LuFileText, LuPlus, LuMapPin, LuLock } from 'react-icons/lu';
 import Button from '@/components/primary/Button';
 import Input from '@/components/primary/Input';
 
