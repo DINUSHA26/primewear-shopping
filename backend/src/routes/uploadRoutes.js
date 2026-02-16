@@ -17,7 +17,7 @@ router.post('/products', protect, upload.array('images', 5), (req, res) => {
 
         // Generate URLs for uploaded files
         const imageUrls = req.files.map(file => {
-            return `${req.protocol}://${req.get('host')}/uploads/products/${file.filename}`;
+            return file.path; // Cloudinary returns the full URL in path
         });
 
         res.status(200).json({
