@@ -14,8 +14,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve static files (uploaded images)
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+// Serve static files (uploaded images) - Removed in favor of Cloudinary
+// app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 const userRoutes = require('./routes/userRoutes');
 
