@@ -4,23 +4,18 @@
 
 ### Backend Changes:
 1. **Multer Configuration** (`backend/src/config/multer.js`)
-   - Handles file uploads with validation
+   - Handles file uploads to **Cloudinary**
+   - Storage: `multer-storage-cloudinary`
    - Accepts: jpeg, jpg, png, gif, webp
    - Max file size: 5MB per image
-   - Max images: 5 per product
+   - Folder: `garment-products`
 
 2. **Upload Route** (`backend/src/routes/uploadRoutes.js`)
    - Endpoint: `POST /api/v1/upload/products`
-   - Requires authentication (vendor/admin)
-   - Returns array of uploaded image URLs
+   - Returns Cloudinary secure URLs
 
-3. **Static File Serving** (`backend/src/app.js`)
-   - Serves uploaded images from `/uploads` directory
-   - Images accessible at: `http://localhost:5000/uploads/products/[filename]`
-
-4. **Storage Directory** (`backend/uploads/products/`)
-   - Created with .gitignore to prevent committing uploaded files
-   - .gitkeep ensures directory exists in git
+3. **Cloudinary Configuration** (`backend/.env`)
+   - Needs `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`
 
 ### Frontend Changes:
 1. **Next.js Config** (`frontend/next.config.ts`)
