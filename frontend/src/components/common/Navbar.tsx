@@ -85,7 +85,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <Link href="/" className={`text-2xl font-black tracking-tighter flex items-center z-50 relative transition-colors ${useDarkText ? 'text-indigo-600' : 'text-indigo-400'}`}>
-          VILLAGE<span className={`transition-colors ${useDarkText ? 'text-zinc-900' : 'text-white'}`}>VOGUE</span>
+          FASHION<span className={`transition-colors ${useDarkText ? 'text-zinc-900' : 'text-white'}`}>DORA</span>
         </Link>
 
         {/* Desktop Navigation */}

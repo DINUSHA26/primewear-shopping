@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Mail, Phone, MapPin, Music2 as Tiktok } from 'lucide-react';
 
 const Footer = () => {
     return (
@@ -9,20 +9,20 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
                     <div className="space-y-6">
                         <Link href="/" className="text-2xl font-bold tracking-tight text-indigo-600">
-                            VILLAGE<span className="text-zinc-900">VOGUE</span>
+                            FASHION<span className="text-zinc-900">DORA</span>
                         </Link>
                         <p className="text-zinc-500 text-sm leading-relaxed">
                             Empowering small-scale local garments to reach customers worldwide. Discover unique, handcrafted clothing from the heart of our villages.
                         </p>
                         <div className="flex space-x-4">
-                            <a href="#" className="p-2 bg-white rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 transition-colors">
+                            <a href="https://www.instagram.com/fashion__dora?igsh=YWdjZ2szc2NtZjF0" className="p-2 bg-white rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 transition-colors">
                                 <Instagram size={18} />
                             </a>
-                            <a href="#" className="p-2 bg-white rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 transition-colors">
+                            <a href="https://www.facebook.com/profile.php?id=100075711233681" className="p-2 bg-white rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 transition-colors">
                                 <Facebook size={18} />
                             </a>
-                            <a href="#" className="p-2 bg-white rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 transition-colors">
-                                <Twitter size={18} />
+                            <a href="https://www.tiktok.com/@fashion_dora?_r=1&_t=ZS-9480qqbLYxE" className="p-2 bg-white rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 transition-colors">
+                                <Tiktok size={18} />
                             </a>
                         </div>
                     </div>
@@ -64,7 +64,7 @@ const Footer = () => {
                 </div>
 
                 <div className="mt-16 pt-8 border-t border-zinc-200 flex flex-col md:flex-row justify-between items-center text-zinc-400 text-xs gap-4">
-                    <p>© 2026 Village Vogue Marketplace. All rights reserved.</p>
+                    <p>© 2026 Fashion Dora Marketplace. All rights reserved.</p>
                     <div className="flex space-x-6">
                         <span>Powered by Village Garments</span>
                         <span>Handmade with Love</span>
