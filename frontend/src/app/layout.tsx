@@ -3,13 +3,14 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/common/Navbar";
 import Footer from "@/components/common/Footer";
+import { ThemeProvider } from "@/components/common/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Village Vogue | Local Garment Multi-Vendor Marketplace",
-  description: "Bridging the gap between small-scale village garments and the wider consumer market. Shop unique, handcrafted local garments.",
-  keywords: ["garments", "local marketplace", "handcrafted clothes", "village garments", "multi-vendor marketplace"],
+  title: "Fashion Dora | Premium Multi-Vendor Marketplace",
+  description: "Experience premium fashion at Fashion Dora. Shop unique, handcrafted garments from local vendors.",
+  keywords: ["fashion dora", "premium garments", "handcrafted clothes", "local marketplace"],
 };
 
 export default function RootLayout({
@@ -18,13 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.className} min-h-screen flex flex-col`}>
-        <Navbar />
-        <main className="flex-grow pt-24 pb-16">
-          {children}
-        </main>
-        <Footer />
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className={`${inter.className} min-h-screen flex flex-col bg-white dark:bg-zinc-950 transition-colors duration-300`}>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          <Navbar />
+          <main className="flex-grow pt-24 pb-16">
+            {children}
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

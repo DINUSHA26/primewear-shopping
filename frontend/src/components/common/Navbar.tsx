@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShoppingBag, User, Search, Menu, X, LogOut, Package, ChevronDown } from 'lucide-react';
+import { ShoppingBag, User, Search, Menu, X, LogOut, Package, ChevronDown, Sun, Moon } from 'lucide-react';
 import { useCart } from '@/store/useCart';
 import api from '@/services/api';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from 'next-themes';
 
 const CATEGORIES = {
   Women: ['Trousers', 'T-shirts', 'Skirts', 'Blouses', 'Crop Tops'],
@@ -15,6 +16,7 @@ const CATEGORIES = {
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -75,22 +77,26 @@ const Navbar = () => {
   const isFixed = isScrolled || isMobileMenuOpen || !isHome;
   const useDarkText = isFixed;
 
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isFixed
-        ? 'bg-white/80 backdrop-blur-lg shadow-sm border-b border-zinc-100 py-3'
+        ? 'bg-white/80 dark:bg-zinc-950/80 backdrop-blur-lg shadow-sm border-b border-zinc-100 dark:border-zinc-800 py-3'
         : 'bg-transparent py-5'
         }`}
       onMouseLeave={() => setActiveCategory(null)}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         <Link href="/" className={`text-2xl font-black tracking-tighter flex items-center z-50 relative transition-colors ${useDarkText ? 'text-indigo-600' : 'text-indigo-400'}`}>
-          FASHION<span className={`transition-colors ${useDarkText ? 'text-zinc-900' : 'text-white'}`}>DORA</span>
+          FASHION<span className={`transition-colors ${useDarkText ? 'text-zinc-900 dark:text-white' : 'text-white'}`}>DORA</span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8 h-full">
-          <Link href="/products" className={`text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${useDarkText ? 'text-zinc-500 hover:text-indigo-600' : 'text-zinc-200 hover:text-white'}`}>
+          <Link href="/products" className={`text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${useDarkText ? 'text-zinc-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400' : 'text-zinc-200 hover:text-white'}`}>
             Shop Catalog
           </Link>
 
@@ -102,7 +108,7 @@ const Navbar = () => {
             >
               <Link
                 href={`/products?category=${category}`}
-                className={`flex items-center text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${useDarkText ? 'text-zinc-500 hover:text-indigo-600' : 'text-zinc-200 hover:text-white'}`}
+                className={`flex items-center text-[10px] font-black uppercase tracking-[0.2em] transition-colors ${useDarkText ? 'text-zinc-500 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400' : 'text-zinc-200 hover:text-white'}`}
               >
                 {category}
                 <ChevronDown size={14} className="ml-1 -mb-[2px] opacity-50 group-hover:opacity-100 transition-opacity" />
@@ -117,12 +123,12 @@ const Navbar = () => {
                     transition={{ duration: 0.2 }}
                     className="absolute top-full left-1/2 -translate-x-1/2 pt-4 w-48"
                   >
-                    <div className="bg-white rounded-xl shadow-xl border border-zinc-100 overflow-hidden py-2">
+                    <div className="bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-zinc-100 dark:border-zinc-800 overflow-hidden py-2">
                       {subCategories.map((sub) => (
                         <Link
                           key={sub}
                           href={`/products?category=${category}&sub=${sub}`}
-                          className="block px-6 py-3 text-sm font-medium text-zinc-600 hover:bg-zinc-50 hover:text-indigo-600 transition-colors"
+                          className="block px-6 py-3 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                           onClick={() => setActiveCategory(null)}
                         >
                           {sub}
@@ -137,8 +143,13 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center space-x-2 sm:space-x-5 z-50 relative">
-          <button className={`p-2 transition-colors ${useDarkText ? 'text-zinc-600 hover:text-indigo-600' : 'text-zinc-200 hover:text-white'}`}>
-            <Search size={22} />
+          <button
+            onClick={toggleTheme}
+            className={`p-2 transition-all duration-300 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 ${useDarkText ? 'text-zinc-600 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400' : 'text-zinc-200 hover:text-white'}`}
+            aria-label="Toggle Theme"
+          >
+            {mounted && (theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />)}
+            {!mounted && <div className="w-5 h-5" />}
           </button>
 
           {mounted && user ? (
@@ -149,11 +160,11 @@ const Navbar = () => {
                 onMouseLeave={() => setIsProfileOpen(false)}
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
               >
-                <button className="flex items-center gap-2 p-1 hover:bg-zinc-50 rounded-full transition-all group">
+                <button className="flex items-center gap-2 p-1 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-full transition-all group">
                   <div className="hidden lg:flex flex-col items-end opacity-50 group-hover:opacity-100 transition-opacity">
-                    <span className={`text-[10px] font-black max-w-[80px] truncate transition-colors ${useDarkText ? 'text-zinc-900' : 'text-white group-hover:text-zinc-900'}`}>{user.name.split(' ')[0]}</span>
+                    <span className={`text-[10px] font-black max-w-[80px] truncate transition-colors ${useDarkText ? 'text-zinc-900 dark:text-white' : 'text-white'}`}>{user.name.split(' ')[0]}</span>
                   </div>
-                  <div className="p-2 bg-indigo-50 text-indigo-600 rounded-full shadow-sm group-hover:shadow-indigo-100 transition-shadow">
+                  <div className="p-2 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full shadow-sm group-hover:shadow-indigo-100 dark:group-hover:shadow-none transition-shadow">
                     <User size={20} />
                   </div>
                 </button>
@@ -168,21 +179,21 @@ const Navbar = () => {
                       className="absolute top-full right-0 pt-4 w-72"
                       style={{ transformOrigin: "top right" }}
                     >
-                      <div className="bg-white rounded-[2rem] shadow-2xl shadow-zinc-200/80 border border-zinc-100 overflow-hidden p-6 relative">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-50 pointer-events-none"></div>
+                      <div className="bg-white dark:bg-zinc-900 rounded-[2rem] shadow-2xl shadow-zinc-200/80 dark:shadow-black/50 border border-zinc-100 dark:border-zinc-800 overflow-hidden p-6 relative">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-50 dark:bg-indigo-900/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-50 pointer-events-none"></div>
 
-                        <div className="flex items-center gap-4 mb-6 pb-6 border-b border-zinc-100 relative">
-                          <div className="h-12 w-12 rounded-2xl bg-zinc-900 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-zinc-200">
+                        <div className="flex items-center gap-4 mb-6 pb-6 border-b border-zinc-100 dark:border-zinc-800 relative">
+                          <div className="h-12 w-12 rounded-2xl bg-zinc-900 dark:bg-indigo-600 flex items-center justify-center text-white font-black text-xl shadow-lg shadow-zinc-200 dark:shadow-none">
                             {user.name.charAt(0)}
                           </div>
                           <div className="overflow-hidden">
-                            <p className="text-sm font-black text-zinc-900 truncate">{user.name}</p>
+                            <p className="text-sm font-black text-zinc-900 dark:text-white truncate">{user.name}</p>
                             <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-wider truncate">{user.email}</p>
                           </div>
                         </div>
 
                         <div className="space-y-2">
-                          <Link href="/orders" className="flex items-center gap-3 w-full p-3 text-zinc-600 hover:bg-zinc-50 hover:text-indigo-600 rounded-2xl transition-all text-[11px] font-black uppercase tracking-widest group">
+                          <Link href="/orders" className="flex items-center gap-3 w-full p-3 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 hover:text-indigo-600 dark:hover:text-indigo-400 rounded-2xl transition-all text-[11px] font-black uppercase tracking-widest group">
                             <Package size={18} className="text-zinc-400 group-hover:text-indigo-600 transition-colors" />
                             <span>My Orders</span>
                           </Link>
@@ -191,7 +202,7 @@ const Navbar = () => {
                               e.stopPropagation();
                               handleLogout();
                             }}
-                            className="flex items-center gap-3 w-full p-3 text-rose-500 hover:bg-rose-50 rounded-2xl transition-all text-[11px] font-black uppercase tracking-widest group"
+                            className="flex items-center gap-3 w-full p-3 text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 rounded-2xl transition-all text-[11px] font-black uppercase tracking-widest group"
                           >
                             <LogOut size={18} className="text-rose-400 group-hover:text-rose-600 transition-colors" />
                             <span>Terminate Session</span>
@@ -204,15 +215,15 @@ const Navbar = () => {
               </div>
             </div>
           ) : (
-            <Link href="/login" className={`p-2 transition-colors ${useDarkText ? 'text-zinc-600 hover:text-indigo-600' : 'text-zinc-200 hover:text-white'}`}>
+            <Link href="/login" className={`p-2 transition-colors ${useDarkText ? 'text-zinc-600 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400' : 'text-zinc-200 hover:text-white'}`}>
               <User size={22} />
             </Link>
           )}
 
-          <Link href="/cart" className={`relative p-2 transition-colors ${useDarkText ? 'text-zinc-600 hover:text-indigo-600' : 'text-zinc-200 hover:text-white'}`}>
+          <Link href="/cart" className={`relative p-2 transition-colors ${useDarkText ? 'text-zinc-600 hover:text-indigo-600 dark:text-zinc-400 dark:hover:text-indigo-400' : 'text-zinc-200 hover:text-white'}`}>
             <ShoppingBag size={22} />
             {mounted && itemCount > 0 && (
-              <span className="absolute top-0 right-0 h-5 w-5 bg-indigo-600 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-lg shadow-indigo-100">
+              <span className="absolute top-0 right-0 h-5 w-5 bg-indigo-600 text-white text-[10px] font-black rounded-full flex items-center justify-center shadow-lg shadow-indigo-100 dark:shadow-none">
                 {itemCount}
               </span>
             )}
