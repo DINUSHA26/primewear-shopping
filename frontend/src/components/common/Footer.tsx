@@ -4,57 +4,57 @@ import { Facebook, Instagram, Mail, Phone, MapPin, Music2 as Tiktok } from 'luci
 
 const Footer = () => {
     return (
-        <footer className="bg-zinc-50 border-t border-zinc-200">
-            <div className="container mx-auto px-6 py-16">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <footer className="bg-zinc-50 dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800 transition-colors">
+            <div className="container mx-auto px-4 md:px-6 py-12 md:py-16">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
                     <div className="space-y-6">
                         <Link href="/" className="text-2xl font-bold tracking-tight text-indigo-600">
-                            FASHION<span className="text-zinc-900">DORA</span>
+                            FASHION<span className="text-zinc-900 dark:text-white">DORA</span>
                         </Link>
-                        <p className="text-zinc-500 text-sm leading-relaxed">
+                        <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
                             Empowering small-scale local garments to reach customers worldwide. Discover unique, handcrafted clothing from the heart of our villages.
                         </p>
                         <div className="flex space-x-4">
-                            <a href="https://www.instagram.com/fashion__dora?igsh=YWdjZ2szc2NtZjF0" className="p-2 bg-white rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 transition-colors">
+                            <a href="https://www.instagram.com/fashion__dora?igsh=YWdjZ2szc2NtZjF0" className="p-2 bg-white dark:bg-zinc-800 rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 dark:border-zinc-700 transition-colors">
                                 <Instagram size={18} />
                             </a>
-                            <a href="https://www.facebook.com/profile.php?id=100075711233681" className="p-2 bg-white rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 transition-colors">
+                            <a href="https://www.facebook.com/profile.php?id=100075711233681" className="p-2 bg-white dark:bg-zinc-800 rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 dark:border-zinc-700 transition-colors">
                                 <Facebook size={18} />
                             </a>
-                            <a href="https://www.tiktok.com/@fashion_dora?_r=1&_t=ZS-9480qqbLYxE" className="p-2 bg-white rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 transition-colors">
+                            <a href="https://www.tiktok.com/@fashion_dora?_r=1&_t=ZS-9480qqbLYxE" className="p-2 bg-white dark:bg-zinc-800 rounded-full text-zinc-400 hover:text-indigo-600 shadow-sm border border-zinc-100 dark:border-zinc-700 transition-colors">
                                 <Tiktok size={18} />
                             </a>
                         </div>
                     </div>
 
                     <div>
-                        <h4 className="text-zinc-900 font-bold mb-6">Quick Links</h4>
+                        <h4 className="text-zinc-900 dark:text-white font-bold mb-6">Quick Links</h4>
                         <ul className="space-y-4">
-                            <li><Link href="/products" className="text-zinc-500 hover:text-indigo-600 transition-colors text-sm">All Products</Link></li>
-                            <li><Link href="/products?featured=true" className="text-zinc-500 hover:text-indigo-600 transition-colors text-sm">Featured</Link></li>
-                            <li><Link href="/about" className="text-zinc-500 hover:text-indigo-600 transition-colors text-sm">Our Story</Link></li>
-                            <li><Link href="/contact" className="text-zinc-500 hover:text-indigo-600 transition-colors text-sm">Contact Us</Link></li>
+                            <li><Link href="/products" className="text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-colors text-sm">All Products</Link></li>
+                            <li><Link href="/products?featured=true" className="text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-colors text-sm">Featured</Link></li>
+                            <li><Link href="/about" className="text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-colors text-sm">Our Story</Link></li>
+                            <li><Link href="/contact" className="text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-colors text-sm">Contact Us</Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 className="text-zinc-900 font-bold mb-6">Support</h4>
+                        <h4 className="text-zinc-900 dark:text-white font-bold mb-6">Support</h4>
                         <ul className="space-y-4">
-                            <li><Link href="/shipping" className="text-zinc-500 hover:text-indigo-600 transition-colors text-sm">Shipping Policy</Link></li>
-                            <li><Link href="/returns" className="text-zinc-500 hover:text-indigo-600 transition-colors text-sm">Returns & Exchanges</Link></li>
-                            <li><Link href="/faq" className="text-zinc-500 hover:text-indigo-600 transition-colors text-sm">FAQs</Link></li>
-                            <li><Link href="/privacy" className="text-zinc-500 hover:text-indigo-600 transition-colors text-sm">Privacy Policy</Link></li>
+                            <li><Link href="/shipping" className="text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-colors text-sm">Shipping Policy</Link></li>
+                            <li><Link href="/returns" className="text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-colors text-sm">Returns & Exchanges</Link></li>
+                            <li><Link href="/faq" className="text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-colors text-sm">FAQs</Link></li>
+                            <li><Link href="/privacy" className="text-zinc-500 dark:text-zinc-400 hover:text-indigo-600 transition-colors text-sm">Privacy Policy</Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 className="text-zinc-900 font-bold mb-6">Newsletter</h4>
-                        <p className="text-zinc-500 text-sm mb-4">Subscribe to get updates on new arrivals and village stories.</p>
+                        <h4 className="text-zinc-900 dark:text-white font-bold mb-6">Newsletter</h4>
+                        <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-4">Subscribe to get updates on new arrivals and village stories.</p>
                         <form className="flex">
                             <input
                                 type="email"
                                 placeholder="Email address"
-                                className="bg-white border border-zinc-200 rounded-l-xl px-4 py-3 text-sm flex-1 focus:outline-none focus:border-indigo-500"
+                                className="bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-l-xl px-4 py-3 text-sm flex-1 focus:outline-none focus:border-indigo-500"
                             />
                             <button className="bg-indigo-600 text-white px-4 py-3 rounded-r-xl font-medium text-sm hover:bg-indigo-700 transition-colors">
                                 Join

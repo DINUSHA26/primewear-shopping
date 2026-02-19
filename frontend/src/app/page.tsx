@@ -56,9 +56,9 @@ export default function Home() {
   return (
     <div className="space-y-24">
       {/* Hero Section */}
-      <section className="relative px-6 -mt-24">
+      <section className="relative px-4 md:px-6 -mt-24 overflow-x-hidden">
         <div className="container mx-auto">
-          <div className="relative h-[85vh] w-full rounded-[40px] overflow-hidden">
+          <div className="relative h-[70vh] md:h-[85vh] w-full rounded-[24px] md:rounded-[40px] overflow-hidden">
             <Image
               src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2000"
               alt="Local Marketplace Hero"
@@ -67,12 +67,12 @@ export default function Home() {
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 md:px-6">
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="bg-white/20 backdrop-blur-sm text-white px-6 py-2 rounded-full text-sm font-medium mb-6 border border-white/30"
+                className="bg-white/20 backdrop-blur-sm text-white px-4 md:px-6 py-2 rounded-full text-xs md:text-sm font-medium mb-4 md:mb-6 border border-white/30"
               >
                 Direct from the Village Garments
               </motion.span>
@@ -80,7 +80,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-5xl md:text-8xl font-black text-white mb-6 tracking-tight"
+                className="text-4xl sm:text-5xl md:text-8xl font-black text-white mb-4 md:mb-6 tracking-tight leading-tight"
               >
                 Wear the <span className="text-indigo-400">Culture.</span>
               </motion.h1>
@@ -88,7 +88,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-zinc-200 text-lg md:text-xl max-w-2xl mb-10"
+                className="text-zinc-200 text-base md:text-xl max-w-2xl mb-8 md:mb-10 px-4 md:px-0"
               >
                 A premium marketplace connecting small-scale artisans with the modern world. Every purchase supports a village family.
               </motion.p>
@@ -99,7 +99,7 @@ export default function Home() {
                 className="flex flex-col sm:flex-row gap-4"
               >
                 <Link href="/products">
-                  <Button size="lg" className="rounded-full">
+                  <Button size="lg" className="rounded-full px-8">
                     Shop Catalog <ArrowRight className="ml-2" size={20} />
                   </Button>
                 </Link>
@@ -110,8 +110,8 @@ export default function Home() {
       </section>
 
       {/* Benefits */}
-      <section className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <section className="container mx-auto px-4 md:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {[
             { icon: <ShieldCheck className="text-indigo-600" />, title: 'Quality Assured', desc: 'Every product is hand-inspected for quality' },
             { icon: <Truck className="text-indigo-600" />, title: 'Island-wide Delivery', desc: 'Fast and reliable shipping to your doorstep' },
@@ -121,13 +121,13 @@ export default function Home() {
             <motion.div
               key={i}
               whileHover={{ scale: 1.02 }}
-              className="p-8 rounded-3xl bg-zinc-50 border border-zinc-100 space-y-4"
+              className="p-6 md:p-8 rounded-2xl md:rounded-3xl bg-zinc-50 border border-zinc-100 space-y-4"
             >
-              <div className="p-3 bg-white w-fit rounded-2xl shadow-sm border border-zinc-100">
+              <div className="p-3 bg-white w-fit rounded-xl md:rounded-2xl shadow-sm border border-zinc-100">
                 {item.icon}
               </div>
-              <h3 className="font-bold text-zinc-900">{item.title}</h3>
-              <p className="text-sm text-zinc-500 leading-relaxed">{item.desc}</p>
+              <h3 className="font-bold text-zinc-900 text-sm md:text-base">{item.title}</h3>
+              <p className="text-xs md:text-sm text-zinc-500 leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}
         </div>

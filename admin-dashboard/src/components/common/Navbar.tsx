@@ -1,12 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { LuBell, LuUser, LuSun, LuMoon } from 'react-icons/lu';
+import { LuBell, LuUser, LuSun, LuMoon, LuMenu } from 'react-icons/lu';
 import api from '@/services/api';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 
-const Navbar = () => {
+interface NavbarProps {
+  onMenuClick: () => void;
+}
+
+const Navbar = ({ onMenuClick }: NavbarProps) => {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -70,8 +74,15 @@ const Navbar = () => {
   };
 
   return (
-    <header className="h-16 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-gray-200 dark:border-zinc-800 flex items-center justify-between px-8 sticky top-0 z-10 transition-colors">
-      <div className="flex items-center">
+    <header className="h-16 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-gray-200 dark:border-zinc-800 flex items-center justify-between px-4 md:px-8 sticky top-0 z-40 transition-colors">
+      <div className="flex items-center gap-3">
+        <button
+          onClick={onMenuClick}
+          className="lg:hidden p-2 text-gray-500 dark:text-zinc-400 hover:bg-gray-50 dark:hover:bg-zinc-800 rounded-xl transition-colors"
+        >
+          <LuMenu size={24} />
+        </button>
+
         <button
           onClick={toggleTheme}
           className="p-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800 text-gray-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 border border-gray-100 dark:border-zinc-700 transition-all flex items-center gap-2 group"
@@ -91,7 +102,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-2 md:gap-6">
         <div className="relative">
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -150,7 +161,7 @@ const Navbar = () => {
           )}
         </div>
 
-        <div className="flex items-center gap-3 border-l pl-6 border-gray-100 dark:border-zinc-800">
+        <div className="flex items-center gap-2 md:gap-3 border-l pl-4 md:pl-6 border-gray-100 dark:border-zinc-800">
           <div className="text-right hidden sm:block">
             <p className="text-sm font-bold text-gray-800 dark:text-zinc-200 leading-none">
               {user?.name || 'Loading...'}
@@ -159,7 +170,7 @@ const Navbar = () => {
               {user?.role === 'admin' ? 'Super Admin' : user?.garmentDetails?.garmentName || 'Vendor'}
             </span>
           </div>
-          <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30">
+          <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30">
             <LuUser className="text-2xl" />
           </div>
         </div>
